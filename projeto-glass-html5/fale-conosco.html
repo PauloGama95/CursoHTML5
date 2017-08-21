@@ -6,13 +6,21 @@
     <link rel="stylesheet" href="_css/estilo.css" />
     <link rel="stylesheet" href="_css/form.css">
 
+    <script language="javascript" src="_javascript/funcoes.js">
+    </script>
+    <script>
+        function calTotal() {
+            var qtd = parseInt(document.getElementById('cQtd').value);
+            tot = qtd * 1500;
+            document.getElementById('cTot').value = tot;
+        }
+
+    </script>
 </head>
-<script language="javascript" src="_javascript/funcoes.js">
-</script>
 <body>
     <div id="interface">
         <header id="cabecalho">
-            <hgroup >
+            <hgroup>
                 <h1>Google Glass</h1>
                 <h2>A revolução do Google está chegando</h2>
             </hgroup>
@@ -20,11 +28,11 @@
             <nav id="menu">
                 <h1>Menu Principal</h1>
                 <ul type="disc">
-                    <li onmouseover="mudaFoto('_imagens/home.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="index.html">Home</li>
-                    <li onmouseover="mudaFoto('_imagens/especificacoes.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="specs.html">Especificações</li>
-                    <li onmouseover="mudaFoto('_imagens/fotos.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="fotos.html">Fotos</li>
-                    <li onmouseover="mudaFoto('_imagens/multimidia.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="multimidia.html">Multimídia</li>
-                    <li onmouseover="mudaFoto('_imagens/contato.png')" onmouseout="mudaFoto('_imagens/.png')"><a href="fale-conosco.html">Fale conosco</li>
+                    <li onmouseover="mudaFoto('_imagens/home.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="index.html">Home</a></li>
+                    <li onmouseover="mudaFoto('_imagens/especificacoes.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="specs.html">Especificações</a></li>
+                    <li onmouseover="mudaFoto('_imagens/fotos.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="fotos.html">Fotos</a></li>
+                    <li onmouseover="mudaFoto('_imagens/multimidia.png')" onmouseout="mudaFoto('_imagens/fotos.png')"><a href="multimidia.html">Multimídia</a></li>
+                    <li onmouseover="mudaFoto('_imagens/contato.png')" onmouseout="mudaFoto('_imagens/.png')"><a href="fale-conosco.html">Fale conosco</a></li>
                 </ul>
 
 
@@ -42,7 +50,8 @@
                         <h3>Atualizado em 01/Maio/2013</h3>
                     </hgroup>
                 </header>
-                <form>
+
+                <form method="post" id="fContato" action="mailto:paulo@gsysteminformatica.com.br" oninput="calTotal();">
 
                     <fieldset id="usuario">
                         <legend>Identificação do Usuário</legend>
@@ -62,23 +71,56 @@
                         <legend>Endereço do Usuário</legend>
                         <p>Logradouro:<input type="text" name="tLograd" id="cLograd" size="20" maxlength="80" placeholder="Ex: Rua, AV, Trav:" /></p>
                         <p>Número:<input type="number" name="tNum" id="cNum" size="5" min="0" max="99999" placeholder="Ex:1234" /></p>
-                        <p>Estado:</p>
-                        <p>Cidade:</p>
+                        <p>
+                            <label for="cEst">Estado:</label>
+                            <select name="tEst" id="cEst">
+
+                                <optgroup label="Região Sudeste">
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option selected value="SP">Sao Paulo</option>
+                                    <option value="MG">Minas Gerais</option>
+                                </optgroup>
+
+                                <optgroup label="Região Sul">
+                                    <option value="PR">Parana</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="RS">Rio gande do Sul</option>
+                                </optgroup>
+
+                            </select>
+                        </p>
+                        <p><label for="cCid">Cidade:<input type="text" name="tCid" id="cCid" maxlength="40" size="20" placeholder="Ex: Ribeirão Preto" list="cidades"></label></p>
+                        <datalist id="cidades">
+                            <option value="Rio De Janeiro"></option>
+                            <option value="Nova Iguaçu"></option>
+                            <option value="Niterói"></option>
+                            <option value="Belford Roxo"></option>
+                        </datalist>
                     </fieldset>
                     <fieldset id="mensagem">
                         <legend>Mensagem do Usuário</legend>
-                        Grau de Urgência:
-                        Mensagem:
+                        <p><label for="cUrg">Grau de Urgência:</label></p>
+                        Min<input type="range" name="tUrg" id="cUrg" min="0" max="10" step="2" />Max
+                        <p>
+                            <label for="cMsg">Mensagem:</label>
+                            <textarea name="tMsg" id="cMsg" cols="35" rows="5" placeholder="Deixe aqui sua mensagem"></textarea>
+                        </p>
+
                     </fieldset>
 
                     <fieldset id="pedido">
                         <legend>Quero um Google Glass</legend>
-                        Gostaria de adquirir um Google Glass quando disponível
-                        Cor:
-                        Quantidade:
-                        Preço Total: R$
+                        <p>
+                            <input type="checkbox" name="tPed" id="cPed" checked />
+                            <label for="cPed">Gostaria de adquirir um Google Glass quando disponível</label>
+                        </p>
+                        <p><label for="cCor">Cor:</label><input type="color" value="#0000ff" /></p>
+                        <p><label for="cQtd">Quantidade:</label><input type="number" name="tQtd" id="cQtd" min="1" max="5" value="1" /></p>
+                        <p><label for="cTot">Preço Total: R$</label><input type="text" name="tTot" id="cTot" placeholder="Total a Pagar" readonly /></p>
                     </fieldset>
-                    [BOTÃO ENVIAR]
+
+                    <input type="submit" value="Enviar" />
+
                 </form>
 
                 </ul>
@@ -92,5 +134,4 @@
         </footer>
     </div>
 </body>
-</html>
 </html>
